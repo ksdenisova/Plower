@@ -3,7 +3,7 @@
 
 A full-stack application allows you to monitor the humidity level of your plants.
 
-It uses [React](https://reactjs.org) for UI and `_____` for the backend. The backend is running on [Raspberry Pi](https://www.raspberrypi.org) which communicate with moisture [sensors]().
+It uses [React](https://reactjs.org) for UI. The backend will be running on [Raspberry Pi](https://www.raspberrypi.org) which communicate with moisture [sensors]().
 
 # How to Setup
 
