@@ -21,3 +21,23 @@ test('renders a default plant image', () => {
   expect(image).toBeInTheDocument();
   expect(image).toHaveAttribute("src", "/default_plant.png");
 });
+
+test('renders last watering date and time', () => {
+  const testPlant = { "id": "0", "name": "Test plant name", "lastWatered": "2022-03-30T12:01:00" };
+  
+  render(<Plant plant={testPlant}/>);
+
+  const lastWatered = screen.getByText("Last watered: March 30, 2022 at 12:01 pm");
+
+  expect(lastWatered).toBeInTheDocument();
+});
+
+test('renders only Last watered label if there are not last watering date and time', () => {
+  const testPlant = { "id": "0", "name": "Test plant name", "lastWatered": "" };
+  
+  render(<Plant plant={testPlant}/>);
+
+  const lastWatered = screen.getByText("Last watered:");
+
+  expect(lastWatered).toBeInTheDocument();
+});
