@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install the React dependencies
+      working-directory: ./ui
+      run: npm install
+
+    - name: Run the React Unit tests
+      working-directory: ./ui
+      run: npm test
