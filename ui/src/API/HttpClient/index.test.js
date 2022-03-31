@@ -1,7 +1,7 @@
-import HttpConnector from '.';
+import HttpClient from '.';
 
 test('returns list of plants', () => {
-  const plants = HttpConnector.getPlants();
+  const plants = HttpClient.getPlants();
 
   expect(plants).toHaveLength(3);
 });

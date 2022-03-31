@@ -1,10 +1,10 @@
 import React from 'react';
-import HttpConnector from '../../API/HttpConnector';
+import HttpClient from '../../API/HttpClient';
 import PlantCollection from '../PlantCollection';
 import './index.css';
 
 function Home() {
-  const plants = HttpConnector.getPlants();
+  const plants = HttpClient.getPlants();
 
   return (
     <div className="home">
