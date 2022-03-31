@@ -11,6 +11,19 @@ function Plant( { plant } ) {
     date = new Date(lastWatered);
     date = format(date, "'Last watered: 'MMMM dd, yyyy' at 'hh:mm aaa");
   }
+
+  let barColor = '#E1ECDA';
+  let progressColor = '#B0D09B';
+
+  if (humidity < 60) {
+    if (humidity >= 40) {
+      barColor = '#F5E7BA';
+      progressColor = '#EBCC66';
+    } else {
+      barColor = '#ECD8D8';
+      progressColor = '#E47B7B';
+    }   
+  }
     
   return (
     <div className="plant-box">
@@ -29,12 +42,15 @@ function Plant( { plant } ) {
           {date}
         </div>
       </div>
-      <div className="humidity-box">
+      <div className="humidity-box" data-testid="humidity">
         <CircularProgressbarWithChildren
-          data-testid="progressBar"
-          value={50}
-          maxValue={100}>
-          <div style={{ color: '#B99A39', fontSize: 16, marginTop: -80 }}>Humidity</div>
+          value={humidity}
+          maxValue={100}
+          styles={{
+            path: { stroke: progressColor },
+            trail: { stroke: barColor }
+          }}>
+          <div style={{ color: '#B99A39', fontSize: 16, marginTop: -85 }}>Humidity</div>
           <div style={{ color: '#878986', fontWeight: 800}}>{humidity + '%'}</div>
         </CircularProgressbarWithChildren>
       </div>

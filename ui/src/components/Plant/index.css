@@ -51,9 +51,6 @@
 }
 
 .CircularProgressbar-path {
-  stroke: #B0D09B;
+  stroke-linecap: round;
 }
 
-.CircularProgressbar-trail {
-  stroke: #E1ECDA;
-}
