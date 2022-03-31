@@ -32,32 +32,12 @@ test('renders last watering date and time', () => {
   expect(lastWatered).toBeInTheDocument();
 });
 
-test('renders only Last watered label if there are not last watering date and time', () => {
+test("renders 'Not yet watered' if there are not last watering date and time", () => {
   const testPlant = { "id": "0", "name": "Test plant name", "lastWatered": "" };
   
   render(<Plant plant={testPlant}/>);
 
-  const lastWatered = screen.getByText("Last watered:");
+  const lastWatered = screen.getByText("Not yet watered");
 
   expect(lastWatered).toBeInTheDocument();
-});
-
-test('renders humidity progress bar', () => {
-  const testPlant = { "id": "0", "name": "Test plant name", "lastWatered": "", "humidity": "75"};
-
-  const { container } = render(<Plant plant={testPlant}/>);
-
-  const humidityBar = container.querySelector(`[data-test-id="CircularProgressbarWithChildren"]`);
-
-  expect(humidityBar).toBeInTheDocument();
-});
-
-test('renders humidity value in %', () => {
-  const testPlant = { "id": "0", "name": "Test plant name", "lastWatered": "", "humidity": "80"};
-
-  render(<Plant plant={testPlant}/>);
-
-  const humidityBar = screen.getByText("80%");
-
-  expect(humidityBar).toBeInTheDocument();
 });
