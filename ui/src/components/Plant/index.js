@@ -20,11 +20,13 @@ function Plant( { plant } ) {
           alt="img"
         />
       </div>
-      <div className="plant-name">
-        {name}
-      </div>
-      <div>
-        {date}
+      <div className="plant-info">
+        <div className="plant-name">
+          {name}
+        </div>
+        <div className="plant-date">
+          {date}
+        </div>
       </div>
     </div>
   );
