@@ -41,3 +41,23 @@ test('renders only Last watered label if there are not last watering date and ti
 
   expect(lastWatered).toBeInTheDocument();
 });
+
+test('renders humidity progress bar', async () => {
+  const testPlant = { "id": "0", "name": "Test plant name", "lastWatered": "", "humidity": "75"};
+
+  render(<Plant plant={testPlant}/>);
+
+  const humidityBar = screen.getByText("Humidity");
+
+  expect(humidityBar).toBeInTheDocument();
+});
+
+test('renders humidity value in %', async () => {
+  const testPlant = { "id": "0", "name": "Test plant name", "lastWatered": "", "humidity": "80"};
+
+  render(<Plant plant={testPlant}/>);
+
+  const humidityBar = screen.getByText("80%");
+
+  expect(humidityBar).toBeInTheDocument();
+});

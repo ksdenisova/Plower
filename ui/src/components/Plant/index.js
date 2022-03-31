@@ -1,9 +1,10 @@
 import React from 'react';
 import { format } from 'date-fns'
+import { CircularProgressbarWithChildren } from 'react-circular-progressbar';
 import './index.css';
 
 function Plant( { plant } ) {
-  const { name, lastWatered } = plant;
+  const { name, lastWatered, humidity } = plant;
   let date = "Last watered:";
 
   if (lastWatered) {
@@ -27,6 +28,15 @@ function Plant( { plant } ) {
         <div className="plant-date">
           {date}
         </div>
+      </div>
+      <div className="humidity-box">
+        <CircularProgressbarWithChildren
+          data-testid="progressBar"
+          value={50}
+          maxValue={100}>
+          <div style={{ color: '#B99A39', fontSize: 16, marginTop: -80 }}>Humidity</div>
+          <div style={{ color: '#878986', fontWeight: 800}}>{humidity + '%'}</div>
+        </CircularProgressbarWithChildren>
       </div>
     </div>
   );
