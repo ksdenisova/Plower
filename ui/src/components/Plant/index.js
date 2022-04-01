@@ -1,16 +1,17 @@
 import React from 'react';
 import { format } from 'date-fns'
+import Humidity from '../Humidity';
 import './index.css';
 
 function Plant( { plant } ) {
-  const { name, lastWatered } = plant;
-  let date = "Last watered:";
+  const { name, lastWatered, humidity } = plant;
+  let date = "Not yet watered";
 
   if (lastWatered) {
     date = new Date(lastWatered);
     date = format(date, "'Last watered: 'MMMM dd, yyyy' at 'hh:mm aaa");
   }
-    
+
   return (
     <div className="plant-box">
       <div className="plant-img-box">
@@ -27,6 +28,9 @@ function Plant( { plant } ) {
         <div className="plant-date">
           {date}
         </div>
+      </div>
+      <div className="humidity-box">
+        <Humidity moisture={humidity}/>
       </div>
     </div>
   );

@@ -32,12 +32,12 @@ test('renders last watering date and time', () => {
   expect(lastWatered).toBeInTheDocument();
 });
 
-test('renders only Last watered label if there are not last watering date and time', () => {
+test("renders 'Not yet watered' if there are not last watering date and time", () => {
   const testPlant = { "id": "0", "name": "Test plant name", "lastWatered": "" };
   
   render(<Plant plant={testPlant}/>);
 
-  const lastWatered = screen.getByText("Last watered:");
+  const lastWatered = screen.getByText("Not yet watered");
 
   expect(lastWatered).toBeInTheDocument();
 });
