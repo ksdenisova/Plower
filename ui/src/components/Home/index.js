@@ -5,6 +5,7 @@ import './index.css';
 
 function Home() {
   const plants = HttpClient.getPlants();
+  let visible = false;
 
   return (
     <div className="home">
@@ -21,6 +22,11 @@ function Home() {
       <div>
         <PlantCollection plants={plants}/>
       </div>
+      {visible ? 
+        <div 
+          className="new-plant-window"
+          data-testid="newPlant">
+        </div> : ""} 
     </div>
   );
 }

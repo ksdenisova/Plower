@@ -17,3 +17,11 @@ test('renders the plus button for adding a new plant', () => {
   expect(button).toBeInTheDocument();
   expect(button).toHaveTextContent("+");
 });
+
+test('does not render the window for adding a new plant by default', () => {
+  render(<Home />);
+
+  const popup = screen.queryByTestId("newPlant");
+
+  expect(popup).not.toBeInTheDocument();
+});

@@ -28,4 +28,3 @@ test('renders the plus button for adding a new plant', () => {
   expect(button).toBeInTheDocument();
   expect(button).toHaveTextContent("+");
 });
-
