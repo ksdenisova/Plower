@@ -35,3 +35,11 @@ h1 {
   color: #FFFFFF;
   font-size: 35px;
 }
+
+button:hover {
+  cursor: pointer;
+}
+
+button:active {
+  transform: scale(0.98);
+}
