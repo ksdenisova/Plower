@@ -3,7 +3,7 @@ import './index.css';
 
 function NewPlant( ) {
   return (
-    <div className="new-plant-box">
+    <div className="new-plant-box" data-testid="newPlant">
       <div className="new-plant-img-box">
         <img
             className="new-plant-img"

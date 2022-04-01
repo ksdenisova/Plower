@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import HttpClient from '../../API/HttpClient';
 import NewPlant from '../NewPlant';
 import PlantCollection from '../PlantCollection';
@@ -6,7 +6,11 @@ import './index.css';
 
 function Home() {
   const plants = HttpClient.getPlants();
-  let visible = true;
+  const [visible, setVisible] = useState(false);
+
+  const addPlant = () => {
+    setVisible(!visible);
+  }
 
   return (
     <div>
@@ -17,7 +21,8 @@ function Home() {
         <div className="button-box">
           <button 
             className="add-button"
-            data-testid="addButton">
+            data-testid="addButton"
+            onClick={addPlant}>
             +
           </button>
         </div>

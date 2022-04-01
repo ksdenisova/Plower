@@ -1,5 +1,5 @@
 import Home from '.';
-import { render, screen } from "@testing-library/react"
+import { render, screen, fireEvent } from "@testing-library/react"
 
 test('renders the header on Home page', () => {
   render(<Home />);
@@ -24,4 +24,15 @@ test('does not render the window for adding a new plant by default', () => {
   const popup = screen.queryByTestId("newPlant");
 
   expect(popup).not.toBeInTheDocument();
+});
+
+test('renders the window for adding a new plant if plus button has been clicked', () => {
+  render(<Home />);
+
+  const button = screen.getByTestId("addButton");
+  fireEvent.click(button);
+
+  const popup = screen.queryByTestId("newPlant");
+  
+  expect(popup).toBeInTheDocument();
 });
