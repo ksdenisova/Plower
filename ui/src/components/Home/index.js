@@ -11,6 +11,13 @@ function Home() {
       <div className="main-header">
         <h1>Plower</h1>
       </div>
+      <div className="button-box">
+        <button 
+          className="add-button"
+          data-testid="addButton">
+          +
+        </button>
+      </div>
       <div>
         <PlantCollection plants={plants}/>
       </div>

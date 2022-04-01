@@ -8,3 +8,12 @@ test('renders the header on Home page', () => {
 
   expect(header).toBeInTheDocument();
 });
+
+test('renders the plus button for adding a new plant', () => {
+  render(<Home />);
+
+  const button = screen.getByTestId("addButton");
+
+  expect(button).toBeInTheDocument();
+  expect(button).toHaveTextContent("+");
+});

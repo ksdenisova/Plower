@@ -18,3 +18,20 @@ h1 {
   letter-spacing: 0.01em;
   color: #96A467;
 }
+
+.button-box {
+  width: 845px;
+}
+
+.add-button {
+  margin-bottom: 20px;
+  width: 147px;
+  height: 34px;
+  background: #ECC549;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  line-height: 10px;
+  color: #FFFFFF;
+  font-size: 35px;
+}
