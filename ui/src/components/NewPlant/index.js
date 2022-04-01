@@ -4,11 +4,13 @@ import './index.css';
 function NewPlant( ) {
   return (
     <div className="new-plant-box">
-      <img
-          className="new-plant-img"
-          src="/new_plant.png"
-          alt="img"
-      />
+      <div className="new-plant-img-box">
+        <img
+            className="new-plant-img"
+            src="/new_plant.png"
+            alt="img"
+        />
+      </div>
       <input 
         className="new-plant-form"
         type="text"
