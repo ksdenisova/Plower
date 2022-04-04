@@ -18,3 +18,44 @@ h1 {
   letter-spacing: 0.01em;
   color: #96A467;
 }
+
+.button-box {
+  width: 845px;
+}
+
+.add-button {
+  margin-bottom: 20px;
+  width: 147px;
+  height: 34px;
+  background: #ECC549;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  line-height: 10px;
+  color: #FFFFFF;
+  font-size: 35px;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+button:active {
+  box-shadow: 0px 1px 4px #244C10;
+  transform: scale(0.98);
+}
+
+.blur {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(185, 192, 160, 0.88);
+}
+
+.new-plant-window {
+  position: fixed;
+  top: 30%;
+  left: 22%;
+}

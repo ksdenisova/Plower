@@ -7,6 +7,9 @@ class HttpClient {
 
     return plants;
   }
+
+  static createPlant(plant) {
+  }
 }
 
 export default HttpClient;

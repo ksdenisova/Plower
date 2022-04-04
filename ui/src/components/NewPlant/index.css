@@ -1,0 +1,52 @@
+.new-plant-box {
+  display: flex;
+  margin-bottom: 20px;
+  width: 845px;
+  height: 141px;
+  background: #FFFFFF;
+  border-radius: 30px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.new-plant-img-box {
+  display: flex;
+  justify-content: center;
+  width: 146px;
+  border-radius: 30px 0px 0px 30px;
+}
+
+.new-plant-img {
+  margin-top: 20px;
+  margin-left: 20px;
+  width: 74%;
+  height: 75%;
+}
+
+.new-plant-form {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 15px;
+  width: 430px;
+  height: 24px;
+  border: none;
+  border-bottom: 3px solid #000000;
+  font-family: 'Roboto';
+  font-weight: 300;
+  font-size: 18px;
+  letter-spacing: 0.01em;
+}
+
+input:focus {
+  outline-width: 0;
+}
+
+.save-button {
+  margin-left: auto;
+  width: 130px;
+  background: #244C10;
+  border-radius: 0px 30px 30px 0px;
+  border: none;
+  line-height: 10px;
+  color: #FFFFFF;
+  font-size: 35px;
+}
