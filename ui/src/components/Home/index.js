@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import HttpClient from '../../API/HttpClient';
 import NewPlant from '../NewPlant';
 import PlantCollection from '../PlantCollection';
 import './index.css';
 
 function Home() {
-  const plants = HttpClient.getPlants();
+  const [plants, setPlants] = useState([]);
   const [newPlantVisibility, setVisibility] = useState(false);
+
+  useEffect(() => {
+    let plants = HttpClient.getPlants();
+    setPlants(plants);
+  }, []);
 
   const changeVisibility = () => {
     setVisibility(!newPlantVisibility);
