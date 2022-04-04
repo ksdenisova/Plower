@@ -17,7 +17,16 @@ function Home() {
     setVisibility(!newPlantVisibility);
   }
 
-  const addPlant = () => {
+  const createPlant = (name) => { 
+    let id = plants.length;
+    let plant = { "id": id, "name": name, "lastWatered": "", "humidity": "" };
+    
+    HttpClient.createPlant(plant);
+
+    let newPlants = plants;
+    newPlants[id] = plant;
+
+    setPlants(newPlants)
     changeVisibility();
   }
 
@@ -31,7 +40,7 @@ function Home() {
           <button 
             className="add-button"
             data-testid="addButton"
-            onClick={addPlant}>
+            onClick={changeVisibility}>
             +
           </button>
         </div>
@@ -41,7 +50,7 @@ function Home() {
       </div>
       <div>
         {newPlantVisibility ? <div className="blur"></div> : null}
-        {newPlantVisibility ? <div className="new-plant-window"><NewPlant changeVisibility={changeVisibility}/></div> : null} 
+        {newPlantVisibility ? <div className="new-plant-window"><NewPlant changeVisibility={changeVisibility} createPlant={createPlant}/></div> : null} 
       </div>
     </div>
   );

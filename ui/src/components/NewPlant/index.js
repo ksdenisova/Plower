@@ -1,7 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './index.css';
 
-function NewPlant( { changeVisibility } ) {
+function NewPlant( { changeVisibility, createPlant } ) {
+  const [name, setName] = useState("");
+
+  const handleChange = (event) => {
+    setName(event.target.value);
+  }
+
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      handleCreatePlant();
+    }
+  }
+
+  const handleCreatePlant = () => {
+    if (!name) {
+      return;
+    }
+    
+    createPlant(name);
+  }
+
   return (
     <div className="new-plant-box" data-testid="newPlant">
       <div className="new-plant-img-box">
@@ -14,13 +34,16 @@ function NewPlant( { changeVisibility } ) {
       <input 
         className="new-plant-form"
         type="text"
+        value={name} 
+        onChange={handleChange}
+        onKeyPress={handleKeyPress}
         placeholder="What's the name of your plant?"
-        autoFocus
-        onBlur={changeVisibility}>
+        autoFocus>
       </input>
       <button 
         className="save-button"
-        data-testid="saveButton">
+        data-testid="saveButton"
+        onClick={handleCreatePlant}>
         +
       </button>
     </div>
