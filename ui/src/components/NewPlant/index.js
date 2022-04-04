@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './index.css';
 
-function NewPlant( { changeVisibility, createPlant } ) {
+function NewPlant( { createPlant } ) {
   const [name, setName] = useState("");
 
   const handleChange = (event) => {

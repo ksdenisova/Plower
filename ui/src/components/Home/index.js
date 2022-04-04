@@ -49,8 +49,8 @@ function Home() {
         </div>
       </div>
       <div>
-        {newPlantVisibility ? <div className="blur"></div> : null}
-        {newPlantVisibility ? <div className="new-plant-window"><NewPlant changeVisibility={changeVisibility} createPlant={createPlant}/></div> : null} 
+        {newPlantVisibility ? <div className="blur" onClick={changeVisibility}></div> : null}
+        {newPlantVisibility ? <div className="new-plant-window"><NewPlant createPlant={createPlant}/></div> : null} 
       </div>
     </div>
   );
