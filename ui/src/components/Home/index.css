@@ -45,11 +45,17 @@ button:active {
   transform: scale(0.98);
 }
 
-.new-plant-window {
-  position: absolute;
-  top: 50%;
-  left: 50%;
+.blur {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   background: rgba(185, 192, 160, 0.88);
+}
+
+.new-plant-window {
+  position: fixed;
+  top: 30%;
+  left: 22%;
 }

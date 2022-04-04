@@ -28,3 +28,11 @@ test('renders the plus button for adding a new plant', () => {
   expect(button).toBeInTheDocument();
   expect(button).toHaveTextContent("+");
 });
+
+test('a new plant form has a focus', () => {
+  render(<NewPlant />);
+
+  const form = screen.getByRole("textbox");
+
+  expect(form).toHaveFocus();
+});

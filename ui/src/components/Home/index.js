@@ -6,10 +6,14 @@ import './index.css';
 
 function Home() {
   const plants = HttpClient.getPlants();
-  const [visible, setVisible] = useState(false);
+  const [newPlantVisibility, setVisibility] = useState(false);
+
+  const changeVisibility = () => {
+    setVisibility(!newPlantVisibility);
+  }
 
   const addPlant = () => {
-    setVisible(!visible);
+    changeVisibility();
   }
 
   return (
@@ -31,7 +35,8 @@ function Home() {
         </div>
       </div>
       <div>
-        {visible ? <div className="new-plant-window"><NewPlant /></div> : null} 
+        {newPlantVisibility ? <div className="blur"></div> : null}
+        {newPlantVisibility ? <div className="new-plant-window"><NewPlant changeVisibility={changeVisibility}/></div> : null} 
       </div>
     </div>
   );

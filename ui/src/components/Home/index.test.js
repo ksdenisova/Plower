@@ -33,6 +33,6 @@ test('renders the window for adding a new plant if plus button has been clicked'
   fireEvent.click(button);
 
   const popup = screen.queryByTestId("newPlant");
-  
+
   expect(popup).toBeInTheDocument();
 });

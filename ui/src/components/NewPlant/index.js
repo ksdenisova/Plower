@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.css';
 
-function NewPlant( ) {
+function NewPlant( { changeVisibility } ) {
   return (
     <div className="new-plant-box" data-testid="newPlant">
       <div className="new-plant-img-box">
@@ -14,7 +14,9 @@ function NewPlant( ) {
       <input 
         className="new-plant-form"
         type="text"
-        placeholder="What's the name of your plant?">
+        placeholder="What's the name of your plant?"
+        autoFocus
+        onBlur={changeVisibility}>
       </input>
       <button 
         className="save-button"
