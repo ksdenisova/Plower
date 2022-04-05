@@ -1,7 +1,20 @@
 import HttpClient from '.';
 
-test('returns list of plants', () => {
-  const plants = HttpClient.getPlants();
-
-  expect(plants).toHaveLength(4);
+describe('HttpClient', () => {
+  test('returns list of plants', async () => {
+    const testPants = [ { "id": "0", "name": "First test plant", "lastWatered": "2022-03-30T12:01:00", "humidity": "75" },
+                      { "id": "1", "name": "Second test plant", "lastWatered": "2022-03-18T07:15:00", "humidity": "50" },
+                      { "id": "2", "name": "Third test plant", "lastWatered": "2022-03-28T23:12:10", "humidity": "32" }];
+    
+    jest.spyOn(global, "fetch").mockImplementation(() =>
+      Promise.resolve({
+        json: () => Promise.resolve(testPants)
+      })
+    );
+    
+    const actualPlants = await HttpClient.getPlants();
+  
+    expect(actualPlants).toHaveLength(testPants.length);
+    expect(actualPlants).toEqual(testPants);
+  });
 });

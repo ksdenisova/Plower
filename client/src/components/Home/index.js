@@ -8,8 +8,8 @@ function Home() {
   const [plants, setPlants] = useState([]);
   const [newPlantVisibility, setVisibility] = useState(false);
 
-  useEffect(() => {
-    let plants = HttpClient.getPlants();
+  useEffect(async () => {
+    let plants = await HttpClient.getPlants();
     setPlants(plants);
   }, []);
 
