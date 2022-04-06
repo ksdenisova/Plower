@@ -7,7 +7,7 @@ describe('PlantCollection', () => {
     
     const { container } = render(<PlantCollection plants={testPlants}/>);
   
-    expect(container.firstChild).toBeEmptyDOMElement()
+    expect(container.firstChild).toBeEmptyDOMElement();
   });
   
   test('renders an one plant', () => {
