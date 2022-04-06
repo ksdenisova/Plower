@@ -9,24 +9,34 @@ function Home() {
   const [newPlantVisibility, setVisibility] = useState(false);
 
   useEffect(() => {
-    let plants = HttpClient.getPlants();
-    setPlants(plants);
+    refresh();
   }, []);
+
+  const  refresh = async () => {
+    try {
+      let plants = await HttpClient.getPlants();
+      setPlants(plants);
+    } catch (error) {
+      console.error("Unable to get plants");
+    }
+  }
 
   const changeVisibility = () => {
     setVisibility(!newPlantVisibility);
   }
 
-  const createPlant = (name) => { 
+  const createPlant = async (name) => { 
     let id = plants.length;
     let plant = { "id": id, "name": name, "lastWatered": "", "humidity": "" };
     
-    HttpClient.createPlant(plant);
-
-    let newPlants = plants;
-    newPlants[id] = plant;
-
-    setPlants(newPlants)
+    try {
+      await HttpClient.createPlant(plant);
+    } catch(error) {
+      console.error("Unable to create plants");
+    }
+  
+    await refresh();
+    
     changeVisibility();
   }
 

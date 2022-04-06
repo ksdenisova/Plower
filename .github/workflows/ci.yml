@@ -17,9 +17,9 @@ jobs:
         node-version: '14'
 
     - name: Install the React dependencies
-      working-directory: ./ui
+      working-directory: ./client
       run: npm install
 
     - name: Run the React Unit tests
-      working-directory: ./ui
+      working-directory: ./client
       run: npm test

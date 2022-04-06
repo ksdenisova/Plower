@@ -1,0 +1,25 @@
+{
+  "name": "plower",
+  "version": "1.0.0",
+  "description": "Moisture monitoring system",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ksdenisova/Plower.git"
+  },
+  "author": "ksdenisova",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ksdenisova/Plower/issues"
+  },
+  "homepage": "https://github.com/ksdenisova/Plower#readme",
+  "devDependencies": {
+    "jest": "^27.5.1"
+  },
+  "dependencies": {
+    "express": "^4.17.3"
+  }
+}
