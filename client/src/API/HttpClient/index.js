@@ -5,7 +5,8 @@ class HttpClient {
     return plants;
   }
 
-  static createPlant(plant) {
+  static async createPlant(plant) {
+    await fetch("/plants", {method: "POST", headers: new Headers({'content-type': 'application/json'}), body: JSON.stringify(plant)});
   }
 }
 

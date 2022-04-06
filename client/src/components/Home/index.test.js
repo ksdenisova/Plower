@@ -1,6 +1,7 @@
 import Home from '.';
-import { render, screen, fireEvent, act } from "@testing-library/react"
+import { render, screen, fireEvent, act, waitFor } from "@testing-library/react"
 import HttpClient from '../../API/HttpClient';
+import userEvent from '@testing-library/user-event'
 
 describe('Home', () => {
   beforeEach(() => {
@@ -63,6 +64,28 @@ describe('Home', () => {
     expect(popup).toBeInTheDocument();
   });
   
+ test('adds a new plant to the existing list', async() => {
+    const createPlantSpy = jest.spyOn(HttpClient, "createPlant");
+
+    await act(async () => {
+        render(<Home />);
+    });
+  
+    const button = screen.getByTestId("addButton");
+    fireEvent.click(button);
+  
+    const name = "Newly plant";
+    let newPlant = { "id": 3, "name": name, "lastWatered": "", "humidity": "" };
+    
+    const form = screen.getByRole("textbox"); 
+    userEvent.type(form, name + '{enter}');
+    
+    await waitFor(() => {
+      expect(createPlantSpy).toHaveBeenCalled();
+      expect(createPlantSpy).toHaveBeenCalledWith(newPlant);
+    });
+  });
+
   test('renders the list of plants', async () => {
     const getPlantsSpy = jest.spyOn(HttpClient, "getPlants");
     
@@ -78,7 +101,5 @@ describe('Home', () => {
     expect(firstPlant).toBeInTheDocument();
     expect(secondPlant).toBeInTheDocument();
     expect(thirdPlant).toBeInTheDocument();
-
-    global.fetch.mockRestore();
-  });  
+  });
 });

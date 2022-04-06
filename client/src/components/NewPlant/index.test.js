@@ -1,7 +1,6 @@
 import NewPlant from '.';
 import { render, screen, fireEvent, waitFor } from "@testing-library/react"
 import userEvent from '@testing-library/user-event'
-import { act } from "react-dom/test-utils";
 
 test('renders form with placeholder for a new plant name', () => {
   render(<NewPlant />);

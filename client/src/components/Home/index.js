@@ -8,25 +8,26 @@ function Home() {
   const [plants, setPlants] = useState([]);
   const [newPlantVisibility, setVisibility] = useState(false);
 
-  useEffect(async () => {
+  useEffect(() => {
+    refresh();
+  }, []);
+
+  const  refresh = async () => {
     let plants = await HttpClient.getPlants();
     setPlants(plants);
-  }, []);
+  }
 
   const changeVisibility = () => {
     setVisibility(!newPlantVisibility);
   }
 
-  const createPlant = (name) => { 
+  const createPlant = async (name) => { 
     let id = plants.length;
     let plant = { "id": id, "name": name, "lastWatered": "", "humidity": "" };
     
-    HttpClient.createPlant(plant);
-
-    let newPlants = plants;
-    newPlants[id] = plant;
-
-    setPlants(newPlants)
+    await HttpClient.createPlant(plant);
+    await refresh();
+    
     changeVisibility();
   }
 
