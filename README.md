@@ -1,22 +1,29 @@
 # Plower
 ## Moisture Monitoring System
 
-A full-stack application allows you to monitor the humidity level of your plants.
+A full-stack [React](https://reactjs.org) + [Node.js](https://nodejs.org/en/) application allows you to monitor the humidity level of your plants.
 
-It uses [React](https://reactjs.org) for UI. The backend will be running on [Raspberry Pi](https://www.raspberrypi.org) which communicate with moisture [sensors]().
+The Plower app is running on [Raspberry Pi](https://www.raspberrypi.org) which communicate with moisture [sensors]().
+
+# Tech Stack
+
+- [React](https://reactjs.org)
+- [Node.js](https://nodejs.org/en/)
+- [Balena](https://www.balena.io)
+- [Raspberry Pi](https://www.raspberrypi.org)
 
 # How to Setup
 
 To set up Plower, run the following commands in your Terminal:
 
-`git@github.com:ksdenisova/Plower.git`
+`git clone git@github.com:ksdenisova/Plower.git`
 
 `cd Plower`
 
 # How to Run Plower
-To start the React app, run the following commands in the Terminal:
+To start the Plower app, run the following commands in the Terminal:
 
-`cd ui`
+`cd Plower`
 
 Install dependencies before the first run:
 
@@ -33,5 +40,11 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 To run the Unit tests for the React app, run this command in the Terminal:
 
 `npm test`
+
+# How to Deploy
+To deploy Plower app to Raspberry Pi locally, run this command in the Terminal:
+
+`balena push Plower`
+
 
 # How to Use Plower
