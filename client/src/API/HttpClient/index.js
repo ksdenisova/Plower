@@ -1,12 +1,19 @@
 class HttpClient {
   static getPlants() {
-    const plants = fetch("/plants").then(response => response.json());
-    
-    return plants;
+    try {
+      const plants = fetch("/plants").then(response => response.json());
+      return plants;
+    } catch(error) {
+      console.error("Unable to get plants: " + error);
+    }
   }
 
   static async createPlant(plant) {
-    await fetch("/plants", {method: "POST", headers: new Headers({'content-type': 'application/json'}), body: JSON.stringify(plant)});
+    try {
+      await fetch("/plants", {method: "POST", headers: new Headers({'content-type': 'application/json'}), body: JSON.stringify(plant)});
+    } catch(error) {
+      console.error("Unable to create plants: " + error);
+    }
   }
 }
 

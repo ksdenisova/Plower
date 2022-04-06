@@ -20,6 +20,13 @@ To set up Plower, run the following commands in your Terminal:
 
 `cd Plower`
 
+# How to Setup
+To build the Plower app, run the following commands in the Terminal:
+
+`cd client`
+
+`npm run build`
+
 # How to Run Plower
 To start the Plower app, run the following commands in the Terminal:
 

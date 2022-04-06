@@ -13,8 +13,12 @@ function Home() {
   }, []);
 
   const  refresh = async () => {
-    let plants = await HttpClient.getPlants();
-    setPlants(plants);
+    try {
+      let plants = await HttpClient.getPlants();
+      setPlants(plants);
+    } catch (error) {
+      console.error("Unable to get plants");
+    }
   }
 
   const changeVisibility = () => {
@@ -25,7 +29,12 @@ function Home() {
     let id = plants.length;
     let plant = { "id": id, "name": name, "lastWatered": "", "humidity": "" };
     
-    await HttpClient.createPlant(plant);
+    try {
+      await HttpClient.createPlant(plant);
+    } catch(error) {
+      console.error("Unable to create plants");
+    }
+  
     await refresh();
     
     changeVisibility();
