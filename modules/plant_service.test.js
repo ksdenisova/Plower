@@ -16,13 +16,13 @@ describe('PlantService', () => {
     expect(actualPlants).toEqual(testPlants);
   });
 
-  test('creates plant', () => {
+  test('creates plant', async () => {
     const testPlant = { "id": "0", "name": "First test plant", "dateAdded": "2022-03-30T11:10:00", 
                             "lastWatered": "2022-03-30T12:01:00", "sensorId": "1", "humidity": "75", "lastReading": "2022-03-30T12:01:00"};
 
-    const createPlantsSpy = jest.spyOn(PlantRepository, "createPlant");
+    const createPlantsSpy = jest.spyOn(PlantRepository, "createPlant").mockImplementation(() => {});
     
-    PlantService.createPlant(testPlant);
+    await PlantService.createPlant(testPlant);
 
     expect(createPlantsSpy).toHaveBeenCalledWith(testPlant);
   });

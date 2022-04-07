@@ -6,8 +6,8 @@ const getPlants = async () => {
   return plants;
 }
 
-const createPlant = (plant) => {
-  PlantRepository.createPlant(plant);
+const createPlant = async (plant) => {
+  await PlantRepository.createPlant(plant);
 }
 
 module.exports = {
