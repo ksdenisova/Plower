@@ -5,9 +5,9 @@ import userEvent from '@testing-library/user-event'
 
 describe('Home', () => {
   beforeEach(() => {
-    const plants = [ { "_id": "0", "name": "First test plant", "lastWatered": "2022-03-30T12:01:00", "humidity": "75" },
-                      { "_id": "1", "name": "Second test plant", "lastWatered": "2022-03-18T07:15:00", "humidity": "50" },
-                      { "_id": "2", "name": "Third test plant", "lastWatered": "2022-03-28T23:12:10", "humidity": "32" }];
+    const plants = [ { "_id": "0", "name": "First test plant", "dateAdded": "2022-03-30T12:01:00", "lastWatered": "2022-03-30T12:01:00", "humidity": "75" },
+                      { "_id": "1", "name": "Second test plant",  "dateAdded": "2022-03-18T07:15:00", "lastWatered": "2022-03-18T07:15:00", "humidity": "50" },
+                      { "_id": "2", "name": "Third test plant", "dateAdded": "2022-03-28T23:12:10", "lastWatered": "2022-03-28T23:12:10", "humidity": "32" }];
   
       jest.spyOn(global, "fetch").mockImplementation(() =>
       Promise.resolve({
@@ -88,6 +88,19 @@ describe('Home', () => {
       expect(createPlantSpy).toHaveBeenCalled();
       expect(createPlantSpy).toHaveBeenCalledWith(newPlant);
     });
+  });
+
+  test('renders plants in descending order based on date added', async() => {
+    await act(async () => {
+      render(<Home />);
+    });
+  
+    const plants = screen.getAllByTestId("plant");
+    
+    expect(plants).toHaveLength(3);
+    expect(plants[0]).toHaveTextContent("First test plant");
+    expect(plants[1]).toHaveTextContent("Third test plant");
+    expect(plants[2]).toHaveTextContent("Second test plant");
   });
 
   test('renders the list of plants', async () => {

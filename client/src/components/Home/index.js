@@ -15,8 +15,9 @@ function Home() {
   const  refresh = async () => {
     try {
       let plants = await HttpClient.getPlants();
-        
-      setPlants(plants);
+      let sortedPlants = plants.sort((x,y) => new Date(y.dateAdded) - new Date(x.dateAdded));
+
+      setPlants(sortedPlants);
     } catch (error) {
     }
   }
