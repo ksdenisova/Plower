@@ -15,9 +15,9 @@ function Home() {
   const  refresh = async () => {
     try {
       let plants = await HttpClient.getPlants();
+        
       setPlants(plants);
     } catch (error) {
-      console.error("Unable to get plants");
     }
   }
 

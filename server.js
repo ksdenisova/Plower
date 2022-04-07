@@ -11,7 +11,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/plants', async (req, res) => {
-  const plants = PlantService.getPlants();
+  const plants = await PlantService.getPlants();
   res.send(plants);
 });
 

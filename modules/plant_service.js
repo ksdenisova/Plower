@@ -1,8 +1,8 @@
 const PlantRepository = require("./plant_repository")
 
-const getPlants = () => {
-  const plants = PlantRepository.getPlants();
-    
+const getPlants = async () => {
+  const plants = await PlantRepository.getPlants();
+  
   return plants;
 }
 
