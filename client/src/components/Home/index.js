@@ -26,8 +26,9 @@ function Home() {
   }
 
   const createPlant = async (name) => { 
-    let id = plants.length;
-    let plant = { "id": id, "name": name, "lastWatered": "", "humidity": "" };
+    let date = new Date(Date.now());
+    let plant = { "name": name, "sensorId": "", "humidity": "", 
+                  "dateAdded": date, "lastWatered": "", "lastReading": ""};
     
     try {
       await HttpClient.createPlant(plant);

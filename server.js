@@ -15,8 +15,8 @@ app.get('/plants', async (req, res) => {
   res.send(plants);
 });
 
-app.post('/plants', (req, res) => {
-  PlantService.createPlant(req.body);
+app.post('/plants', async (req, res) => {
+  await PlantService.createPlant(req.body);
   res.send(req.body);
 })
 

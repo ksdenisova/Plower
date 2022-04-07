@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react"
 
 describe('Plant', () => {
   test('renders a plant name', () => {
-    const testPlant = { "id": "0", "name": "Test plant name" };
+    const testPlant = { "_id": "0", "name": "Test plant name" };
     
     render(<Plant plant={testPlant}/>);
   
@@ -13,7 +13,7 @@ describe('Plant', () => {
   });
   
   test('renders a default plant image', () => {
-    const testPlant = { "id": "0", "name": "Test plant name" };
+    const testPlant = { "_id": "0", "name": "Test plant name" };
     
     render(<Plant plant={testPlant}/>);
   
@@ -24,7 +24,7 @@ describe('Plant', () => {
   });
   
   test('renders last watering date and time', () => {
-    const testPlant = { "id": "0", "name": "Test plant name", "lastWatered": "2022-03-30T12:01:00" };
+    const testPlant = { "_id": "0", "name": "Test plant name", "lastWatered": "2022-03-30T12:01:00" };
     
     render(<Plant plant={testPlant}/>);
   
@@ -34,7 +34,7 @@ describe('Plant', () => {
   });
   
   test("renders 'Not yet watered' if there are not last watering date and time", () => {
-    const testPlant = { "id": "0", "name": "Test plant name", "lastWatered": "" };
+    const testPlant = { "_id": "0", "name": "Test plant name", "lastWatered": "" };
     
     render(<Plant plant={testPlant}/>);
   
