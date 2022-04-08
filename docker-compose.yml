@@ -1,0 +1,25 @@
+version: "2"
+
+volumes:
+    plower-data:
+
+services:
+  plower-app:
+    build: .
+    ports:
+      - "80:80"
+    depends_on:
+      - mongo-db
+
+  mongo-db:
+    image: mongo:4.4.13-focal
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: plower
+    volumes:
+      - 'plower-data:/data/db'
+    expose:
+      - "27017"
+    ports:
+      - "27017:27017"
+  

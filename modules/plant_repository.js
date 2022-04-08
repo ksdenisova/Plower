@@ -1,7 +1,5 @@
 const { MongoClient } = require("mongodb");
-const dbUser = process.env.MONGO_USER
-const dbPassword = process.env.MONGO_PASSWORD
-const uri = `mongodb://${dbUser}:${dbPassword}@localhost:27017/?authMechanism=DEFAULT`;
+const uri = `mongodb://mongo-db:27017/?authMechanism=DEFAULT`;
 const client = new MongoClient(uri);
 
 const getPlants = async () =>  {
