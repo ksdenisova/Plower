@@ -7,11 +7,11 @@ describe('PlantCollection', () => {
     
     const { container } = render(<PlantCollection plants={testPlants}/>);
   
-    expect(container.firstChild).toBeEmptyDOMElement()
+    expect(container.firstChild).toBeEmptyDOMElement();
   });
   
   test('renders an one plant', () => {
-    const testPlants = [ { "id": "0", "name": "My first test plant" } ];
+    const testPlants = [ { "_id": "0", "name": "My first test plant" } ];
     
     render(<PlantCollection plants={testPlants}/>);
   
@@ -21,8 +21,8 @@ describe('PlantCollection', () => {
   });
   
   test('renders the list of plants', () => {
-    const testPlants = [ { "id": "0", "name": "My first test plant" },
-                          { "id": "1", "name": "My second test plant" } ];
+    const testPlants = [ { "_id": "0", "name": "My first test plant" },
+                          { "_id": "1", "name": "My second test plant" } ];
     
     render(<PlantCollection plants={testPlants}/>);
   
@@ -34,8 +34,8 @@ describe('PlantCollection', () => {
   });
   
   test('renders the list of plants with the same names', () => {
-    const testPlants = [ { "id": "0", "name": "Test plant" },
-                          { "id": "1", "name": "Test plant" } ];
+    const testPlants = [ { "_id": "0", "name": "Test plant" },
+                          { "_id": "1", "name": "Test plant" } ];
     
     render(<PlantCollection plants={testPlants}/>);
   

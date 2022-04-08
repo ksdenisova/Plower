@@ -2,7 +2,7 @@ import React from 'react';
 import Plant from '../Plant';
 
 function PlantCollection( { plants } ) {
-  const plantsView = plants.map(plant => <Plant key={plant.id} plant={plant}/>);
+  const plantsView = plants.map(plant => <Plant key={plant._id} plant={plant}/>);
   
   return (
     <div>

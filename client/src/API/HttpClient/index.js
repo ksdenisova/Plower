@@ -1,10 +1,12 @@
 class HttpClient {
-  static getPlants() {
+  static async getPlants() {
     try {
-      const plants = fetch("/plants").then(response => response.json());
+      const plants = await fetch("/plants").then(response => response.json());
+
       return plants;
     } catch(error) {
       console.error("Unable to get plants: " + error);
+      throw error;
     }
   }
 

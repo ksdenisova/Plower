@@ -13,7 +13,7 @@ function Plant( { plant } ) {
   }
 
   return (
-    <div className="plant-box">
+    <div className="plant-box" data-testid="plant">
       <div className="plant-img-box">
         <img
           className="plant-img"

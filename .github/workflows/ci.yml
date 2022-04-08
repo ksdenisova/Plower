@@ -16,6 +16,12 @@ jobs:
       with:
         node-version: '14'
 
+    - name: Install the Node.js dependencies
+      run: npm install
+
+    - name: Run the Node.js Unit tests
+      run: npm test
+    
     - name: Install the React dependencies
       working-directory: ./client
       run: npm install

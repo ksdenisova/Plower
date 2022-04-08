@@ -4,7 +4,8 @@
   "description": "Moisture monitoring system",
   "main": "server.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "test:watch": "npm run test -- --watch"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,10 @@
     "jest": "^27.5.1"
   },
   "dependencies": {
-    "express": "^4.17.3"
+    "@babel/preset-env": "^7.16.11",
+    "babel-jest": "^27.5.1",
+    "express": "^4.17.3",
+    "mongodb": "^4.5.0",
+    "ts-jest": "^27.1.4"
   }
 }
