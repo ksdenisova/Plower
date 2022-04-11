@@ -1,7 +1,14 @@
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
-const PlantService = require('./modules/plant_service')
+const PlantService = require('./modules/plant_service');
+const PlantReader = require('./modules/plant_reader');
+
+const schedule = require('node-schedule');
+
+const job = schedule.scheduleJob('* * * * * *', async () => {
+  await PlantReader.updateHumidity();
+});
 
 app.use(express.json());
 app.use(express.static('client/build'));
