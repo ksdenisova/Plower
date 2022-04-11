@@ -22,9 +22,12 @@
   },
   "dependencies": {
     "@babel/preset-env": "^7.16.11",
+    "ads1115": "^1.2.0",
     "babel-jest": "^27.5.1",
     "express": "^4.17.3",
+    "i2c-bus": "^5.2.2",
     "mongodb": "^4.5.0",
+    "node-schedule": "^2.1.0",
     "ts-jest": "^27.1.4"
   }
 }
