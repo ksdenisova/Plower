@@ -1,4 +1,3 @@
-const { TabsContext } = require('@mui/base');
 const PlantReader = require('./sensor_reader');
 
 describe('PlantReader', () => {
@@ -17,7 +16,7 @@ describe('PlantReader', () => {
     const wetMin = 5000;
     const mediumValue = 7500;
     const dryValue = 11500;
-    const wetValue = 4800;
+    const wetValue = 5200;
 
     const actualMedium = PlantReader.calculateHumidity(dryMax, wetMin, mediumValue);
     const actualDry = PlantReader.calculateHumidity(dryMax, wetMin, dryValue);

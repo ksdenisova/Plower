@@ -13,7 +13,8 @@ const sensors = [ {"id": 1, "channel": "1+GND", "humidity": null, "dryMax": 1273
 
 const updateHumidity = async () => {
   for (let sensor of sensors) {
-    sensor.humidity = await readHumidity(sensor.channel);
+    const value = await readHumidity(sensor.channel);
+    sensor.humidity = calculateHumidity(sensor.dryMax, sensor.wetMin, value);
     console.log("CHN: ", sensor.channel, " = ", sensor.humidity);
   }
 }
@@ -31,7 +32,7 @@ const readHumidity = async (channel) => {
 const calculateHumidity = (dryMax, wetMin, value) => {
   const percent = (dryMax - wetMin) / 100;
 
-  const humidity = Math.round(100 - (Math.abs(value - wetMin) / percent));
+  const humidity = Math.round(100 - (value - wetMin) / percent);
 
   return humidity;
 }
