@@ -40,17 +40,22 @@ To build the Plower app, run the following commands in the Terminal:
 
 - Connect Sensors to ADS1115 using this diagram:
 
+![Wiring-Diagram](https://user-images.githubusercontent.com/89826596/162974463-0af4f75f-e098-4c2c-982a-628f5b3d45f3.jpg)
+
 - Install ADS1115 to Raspberry Pi.
 
 After all setups, your hardware should look like this:
 
+![2022-04-12 09 37 49](https://user-images.githubusercontent.com/89826596/162975141-1c41d33b-8089-4796-999b-0036878a64d6.jpg)
+
 
 To check if Raspberry Pi sees the ADS1115, run the following command in the Balena Terminal:
-
 
 `i2cdetect -y 1`
 
 If everything is set up correctly, you will see the following (48 address set by default):
+
+![CleanShot 2022-04-10 at 15 13 49@2x](https://user-images.githubusercontent.com/89826596/162975277-67b64e68-3122-4742-8e52-89cf72057e09.png)
 
 # How to Calibrate Sensors
 You should calibrate sensors when they dry first.
