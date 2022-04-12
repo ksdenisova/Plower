@@ -13,6 +13,13 @@ WORKDIR /usr/src/app
 # Copies the package.json first for better cache on later pushes
 COPY package*.json ./
 
+# This install dependencies for ADS1115
+RUN apt-get update
+
+RUN apt-get install build-essential 
+
+RUN apt-get install python3
+
 # This install npm dependencies on the balena build server,
 # making sure to clean up the artifacts it creates in order to reduce the image size.
 RUN JOBS=MAX npm install --production --unsafe-perm && npm cache verify && rm -rf /tmp/*
