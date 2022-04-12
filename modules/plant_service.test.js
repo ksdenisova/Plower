@@ -1,5 +1,6 @@
 const PlantService = require('./plant_service');
 const PlantRepository = require('./plant_repository');
+const SensorReader = require('./SensorReader/sensor_reader')
 
 describe('PlantService', () => {
   test('returns list of plants', async () => {
@@ -20,10 +21,12 @@ describe('PlantService', () => {
     const testPlant = { "id": "0", "name": "First test plant", "dateAdded": "2022-03-30T11:10:00", 
                             "lastWatered": "2022-03-30T12:01:00", "sensorId": "1", "humidity": "75", "lastReading": "2022-03-30T12:01:00"};
 
+    const assignSensorSpy = jest.spyOn(SensorReader, "assignSensor").mockImplementation(() => 2);
     const createPlantsSpy = jest.spyOn(PlantRepository, "createPlant").mockImplementation(() => {});
-    
+
     await PlantService.createPlant(testPlant);
 
+    expect(assignSensorSpy).toHaveBeenCalled();
     expect(createPlantsSpy).toHaveBeenCalledWith(testPlant);
   });
 });

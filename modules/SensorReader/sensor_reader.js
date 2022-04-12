@@ -8,8 +8,8 @@ if (os.arch() == 'arm64') {
   i2c = require('./i2c.mock');
 }
 
-const sensors = [ {"id": 1, "channel": "1+GND", "humidity": null, "dryMax": 12730, "wetMin": 5571, "available": false},
-                  {"id": 2, "channel": "2+GND", "humidity": null, "dryMax": 12116, "wetMin": 5265, "available": false} ];
+let sensors = [ {"id": 1, "channel": "1+GND", "humidity": null, "dryMax": 12730, "wetMin": 5571, "available": true},
+                  {"id": 2, "channel": "2+GND", "humidity": null, "dryMax": 12116, "wetMin": 5265, "available": true} ];
 
 const updateHumidity = async () => {
   for (let sensor of sensors) {
@@ -35,6 +35,26 @@ const calculateHumidity = (dryMax, wetMin, value) => {
   const humidity = Math.round(100 - (value - wetMin) / percent);
 
   return humidity;
+}
+
+const assignSensor = () => {
+  let availableSensor;
+
+  for (let sensor of sensors) {
+    if (sensor.available) {
+      availableSensor = sensor;
+      break;
+    }
+  }
+
+  if (!availableSensor) {
+    console.log("No available sensor found");
+    return null;
+  }
+
+  console.log("Assigned sensor on channel:", availableSensor.channel);
+  availableSensor.available = false;
+  return availableSensor;
 }
 
 const calibrateDrySensors = async () => {
@@ -80,10 +100,15 @@ const calibrateWetSensor = async (channel) => {
   return min;
 }
 
+const setSensors = (values) => {
+  sensors = values;
+}
+
 module.exports = {
   updateHumidity,
   readHumidity,
   calibrateDrySensors,
   calibrateWetSensors,
-  calculateHumidity
+  calculateHumidity,
+  assignSensor, setSensors
 }

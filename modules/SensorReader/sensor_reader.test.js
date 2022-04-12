@@ -1,11 +1,11 @@
-const PlantReader = require('./sensor_reader');
+const SensorReader = require('./sensor_reader');
 
-describe('PlantReader', () => {
+describe('SensorReader', () => {
   test('returns sensor humidity', async () => {
     const testHumidity = 60;
-    const readHumiditySpy = jest.spyOn(PlantReader, "readHumidity").mockImplementation(() => testHumidity);
+    const readHumiditySpy = jest.spyOn(SensorReader, "readHumidity").mockImplementation(() => testHumidity);
     
-    const actualHumidity = await PlantReader.readHumidity();
+    const actualHumidity = await SensorReader.readHumidity();
 
     expect(readHumiditySpy).toHaveBeenCalled();
     expect(actualHumidity).toEqual(testHumidity);
@@ -18,9 +18,9 @@ describe('PlantReader', () => {
     const dryValue = 11500;
     const wetValue = 5200;
 
-    const actualMedium = PlantReader.calculateHumidity(dryMax, wetMin, mediumValue);
-    const actualDry = PlantReader.calculateHumidity(dryMax, wetMin, dryValue);
-    const actualWet= PlantReader.calculateHumidity(dryMax, wetMin, wetValue);
+    const actualMedium = SensorReader.calculateHumidity(dryMax, wetMin, mediumValue);
+    const actualDry = SensorReader.calculateHumidity(dryMax, wetMin, dryValue);
+    const actualWet= SensorReader.calculateHumidity(dryMax, wetMin, wetValue);
     
     const expectedMedium = 64;
     const expectedDry = 7;
@@ -29,5 +29,25 @@ describe('PlantReader', () => {
     expect(actualMedium).toEqual(expectedMedium);
     expect(actualDry).toEqual(expectedDry);
     expect(actualWet).toEqual(expectedWet);
+  });
+
+  test('returns first available sensor', () => {
+    const sensors = [ {"id": 1, "channel": "1+GND", "humidity": 85, "dryMax": 12730, "wetMin": 5571, "available": false},
+                  {"id": 2, "channel": "2+GND", "humidity": 10, "dryMax": 12116, "wetMin": 5265, "available": true} ];
+
+    SensorReader.setSensors(sensors);
+    const availableSensor = SensorReader.assignSensor();
+    const expectedSensor = {"id": 2, "channel": "2+GND", "humidity": 10, "dryMax": 12116, "wetMin": 5265, "available": false};
+
+    expect(availableSensor).toEqual(expectedSensor);
+  });
+
+  test('returns null if not found available sensor', () => {
+    const sensors = [ {"id": 1, "channel": "1+GND", "humidity": 85, "dryMax": 12730, "wetMin": 5571, "available": false} ];
+
+    SensorReader.setSensors(sensors);
+    const availableSensor = SensorReader.assignSensor();
+
+    expect(availableSensor).toBeNull();
   });
 });
