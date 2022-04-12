@@ -28,6 +28,14 @@ const readHumidity = async (channel) => {
   return humidity;
 }
 
+const calculateHumidity = (dryMax, wetMin, value) => {
+  const percent = (dryMax - wetMin) / 100;
+
+  const humidity = Math.round(100 - (Math.abs(value - wetMin) / percent));
+
+  return humidity;
+}
+
 const calibrateDrySensors = async () => {
   console.log("Calibrating dry sensors. Do not touch sensors");
 
@@ -75,5 +83,6 @@ module.exports = {
   updateHumidity,
   readHumidity,
   calibrateDrySensors,
-  calibrateWetSensors
+  calibrateWetSensors,
+  calculateHumidity
 }

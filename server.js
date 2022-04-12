@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
 const PlantService = require('./modules/plant_service');
-const PlantReader = require('./modules/plant_reader');
+const PlantReader = require('./modules/SensorReader/sensor_reader');
 const schedule = require('node-schedule');
 
 if (process.argv[2] == "calibrate") {
