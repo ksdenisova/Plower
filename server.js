@@ -31,7 +31,7 @@ if (process.argv[2] == "calibrate") {
   })
   
   app.listen(port, async () => {
-    await SensorReader.updateHumidity();
+    await PlantService.updateHumidity();
     console.log(`Plower app listening on port ${port}`);
   });
 }
