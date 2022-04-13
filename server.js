@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
-const PlantService = require('./modules/plant_service');
+const PlantService = require('./modules/PlantService/plant_service');
 
 if (process.argv[2] == "calibrate") {
   if (process.argv[3] == "dry")

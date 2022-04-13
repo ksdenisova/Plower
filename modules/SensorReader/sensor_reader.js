@@ -9,9 +9,9 @@ if (os.arch() == 'arm64') {
 }
 
 const readHumidity = async (channel) => {
-  let humidity = i2c.openPromisified(1).then(async (bus) => {
+  const humidity = i2c.openPromisified(1).then(async (bus) => {
     const ads1115 = await ADS1115(bus);
-    let value = await ads1115.measure(channel);
+    const value = await ads1115.measure(channel);
     return value;
   });
 

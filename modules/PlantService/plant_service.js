@@ -1,6 +1,6 @@
-const PlantRepository = require('./Repository/plant_repository');
-const SensorRepository = require('./Repository/sensor_repository');
-const SensorReader = require('./SensorReader/sensor_reader');
+const PlantRepository = require('../Repository/plant_repository');
+const SensorRepository = require('../Repository/sensor_repository');
+const SensorReader = require('../SensorReader/sensor_reader');
 const schedule = require('node-schedule');
 const period = process.env.PERIOD || '*/30 * * * *';
 
