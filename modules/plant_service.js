@@ -19,20 +19,31 @@ const createPlant = async (plant) => {
   const sensor = await assignSensor();
 
   if (sensor) {
+    const humidity = await getCurrentHumidity(sensor);
+    sensor.humidity = humidity;
     plant.sensorId = sensor._id;
-    plant.humidity = getCurrentHumidity(sensor);
+    plant.humidity = humidity;
+    
+    await PlantRepository.saveSensor(sensor);
   }
 
   await PlantRepository.createPlant(plant);
 }
 
 const updateHumidity = async () => {
-  let sensors = await PlantRepository.getSensors();
+  const sensors = await PlantRepository.getSensors();
 
   for (let sensor of sensors) {
-    const humidity = getCurrentHumidity(sensor);
-    
-    await PlantRepository.updatePlant(sensor._id, humidity);
+    const humidity = await getCurrentHumidity(sensor);
+
+    if (humidity - sensor.humidity >= 10) {
+      const lastWatered = new Date(Date.now());
+      await PlantRepository.updatePlantWatering(sensor._id, humidity, lastWatered.to);
+    } else {
+      await PlantRepository.updatePlantHumidity(sensor._id, humidity);
+    }
+  
+    await PlantRepository.updateSensor(sensor._id, humidity);
     console.log("Current humidity on channel", sensor.channel, "=", humidity);
   }
 }
@@ -54,7 +65,7 @@ const calculateHumidity = (dryMax, wetMin, value) => {
 
 const assignSensor = async () => {
   let availableSensor;
-  let sensors = await PlantRepository.getSensors();
+  const sensors = await PlantRepository.getSensors();
 
   for (let sensor of sensors) {
     if (!sensor.assigned) {
@@ -69,16 +80,14 @@ const assignSensor = async () => {
     return null;
   }
 
-  console.log("Assigned sensor on channel:", availableSensor.channel);
-  await PlantRepository.saveSensor(availableSensor);
-  
+  console.log("Assigned sensor on channel:", availableSensor.channel);  
   return availableSensor;
 }
 
 const calibrateDrySensors = async () => {
   console.log("Calibrating dry sensors. Do not touch sensors.");
 
-  let sensors = await PlantRepository.getSensors();
+  const sensors = await PlantRepository.getSensors();
 
   for (let sensor of sensors) {
     console.log("Calibrating dry sensor on channel", sensor.channel);
@@ -96,7 +105,7 @@ const calibrateDrySensors = async () => {
 const calibrateWetSensors = async () => {
   console.log("Calibrating wet sensors. Sensors should be placed into the water.\nIf they are not, please place sensors into the water and start the calibration again.");
 
-  let sensors = await PlantRepository.getSensors();
+  const sensors = await PlantRepository.getSensors();
 
   for (let sensor of sensors) {
     console.log("Calibrating wet sensor on channel", sensor.channel);
