@@ -79,7 +79,7 @@ describe('Home', () => {
     const dateSpy = jest.spyOn(Date, 'now').mockImplementation(() => fakeDate);
 
     let newPlant = { "name": name, "sensorId": "", "humidity": "", 
-                      "dateAdded": fakeDate, "lastWatered": "", "lastReading": ""};
+                      "dateAdded": fakeDate, "lastWatered": fakeDate};
     
     const form = screen.getByRole("textbox"); 
     userEvent.type(form, name + '{enter}');
