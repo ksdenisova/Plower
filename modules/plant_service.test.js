@@ -8,7 +8,7 @@ describe('PlantService', () => {
                   {"id": 2, "channel": "2+GND", "humidity": 10, "dryMax": 12500, "wetMin": 5500, "assigned": false} ];
 
     jest.spyOn(PlantRepository, "getSensors").mockImplementation(() => {return sensors});
-    jest.spyOn(PlantRepository, "updateSensor").mockImplementation(() => null);
+    jest.spyOn(PlantRepository, "saveSensor").mockImplementation(() => null);
   });
   
   afterEach(() => {
@@ -34,6 +34,7 @@ describe('PlantService', () => {
                             "lastWatered": "2022-03-30T12:01:00", "sensorId": "1", "humidity": "75"};
 
     const createPlantsSpy = jest.spyOn(PlantRepository, "createPlant").mockImplementation(() => {});
+    const readHumiditySpy = jest.spyOn(SensorReader, "readHumidity").mockImplementation(() => 10000);
 
     await PlantService.createPlant(testPlant);
 
@@ -81,13 +82,13 @@ describe('PlantService', () => {
                       {"id": 2, "channel": "2+GND", "dryMax": "", "wetMin": ""} ];
 
     const getSensorsSpy = jest.spyOn(PlantRepository, "getSensors").mockImplementation(() => {return sensors});
-    const updateSensorSpy = jest.spyOn(PlantRepository, "updateSensor").mockImplementation(() => null);
+    const saveSensorSpy = jest.spyOn(PlantRepository, "saveSensor").mockImplementation(() => null);
 
     const calibrateSpy = jest.spyOn(SensorReader, "calibrateDrySensor").mockImplementation(() => 12000);
     await PlantService.calibrateDrySensors();
 
     expect(getSensorsSpy).toHaveBeenCalledTimes(1);
-    expect(updateSensorSpy).toHaveBeenCalledTimes(2);
+    expect(saveSensorSpy).toHaveBeenCalledTimes(2);
     expect(calibrateSpy).toHaveBeenCalledTimes(2);
   });
 
@@ -96,13 +97,13 @@ describe('PlantService', () => {
                       {"id": 2, "channel": "2+GND", "dryMax": "", "wetMin": ""} ];
 
     const getSensorsSpy = jest.spyOn(PlantRepository, "getSensors").mockImplementation(() => {return sensors});
-    const updateSensorSpy = jest.spyOn(PlantRepository, "updateSensor").mockImplementation(() => null);
+    const saveSensorSpy = jest.spyOn(PlantRepository, "saveSensor").mockImplementation(() => null);
 
     const calibrateSpy = jest.spyOn(SensorReader, "calibrateWetSensor").mockImplementation(() => 5000);
     await PlantService.calibrateWetSensors();
 
     expect(getSensorsSpy).toHaveBeenCalledTimes(1);
-    expect(updateSensorSpy).toHaveBeenCalledTimes(2);
+    expect(saveSensorSpy).toHaveBeenCalledTimes(2);
     expect(calibrateSpy).toHaveBeenCalledTimes(2);
   });
 });

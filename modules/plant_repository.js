@@ -33,12 +33,18 @@ const updatePlant = async (sensorId, humidity) => {
   try {
     await client.connect();
     const db = client.db("plower");
-    const sensors = db.collection("plants");
-    const query = { _id: sensorId };
-    
-    const result = await sensors.replaceOne(query, sensor);
+    const plants = db.collection("plants");
+    const query = { sensorId: sensorId };
 
-    console.log(`Modified ${result.modifiedCount} document(s)`);
+    const updateDoc = {
+      $set: {
+        humidity: humidity
+      },
+    };
+    const result = await plants.updateOne(query, updateDoc);
+    console.log(
+      `${result.matchedCount} document(s) matched the filter, updated ${result.modifiedCount} document(s)`,
+    );
   } finally {
     await client.close();
   }
@@ -56,7 +62,7 @@ const getSensors = async () => {
   }
 }
 
-const updateSensor = async (sensor) => {
+const saveSensor = async (sensor) => {
   try {
     await client.connect();
     const db = client.db("plower");
@@ -73,6 +79,7 @@ const updateSensor = async (sensor) => {
 module.exports = {
   getPlants,
   createPlant,
+  updatePlant,
   getSensors,
-  updateSensor
+  saveSensor
 }
