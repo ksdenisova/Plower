@@ -69,10 +69,48 @@ const assignSensor = async () => {
   return availableSensor;
 }
 
+const calibrateDrySensors = async () => {
+  console.log("Calibrating dry sensors. Do not touch sensors.");
+
+  let sensors = await PlantRepository.getSensors();
+
+  for (let sensor of sensors) {
+    console.log("Calibrating dry sensor on channel", sensor.channel);
+    sensor.dryMax = await SensorReader.calibrateDrySensor(sensor.channel);
+    await PlantRepository.updateSensor(sensor);
+    
+    console.log("Saved this value as dry max:", sensor.dryMax);
+  }
+
+  if (process.env.PRODUCTION) {
+    process.exit(0);
+  }
+}
+
+const calibrateWetSensors = async () => {
+  console.log("Calibrating wet sensors. Sensors should be placed into the water.\nIf they are not, please place sensors into the water and start the calibration again.");
+
+  let sensors = await PlantRepository.getSensors();
+
+  for (let sensor of sensors) {
+    console.log("Calibrating wet sensor on channel", sensor.channel);
+    sensor.wetMin = await SensorReader.calibrateWetSensor(sensor.channel);
+    await PlantRepository.updateSensor(sensor);
+
+    console.log("Saved this value as wet min:", sensor.wetMin);
+  }
+
+  if (process.env.PRODUCTION) {
+    process.exit(0);
+  }
+}
+
 module.exports = {
   getPlants,
   createPlant,
   updateHumidity,
   calculateHumidity,
-  assignSensor
+  assignSensor,
+  calibrateDrySensors,
+  calibrateWetSensors
 }

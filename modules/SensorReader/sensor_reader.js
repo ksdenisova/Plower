@@ -18,16 +18,6 @@ const readHumidity = async (channel) => {
   return humidity;
 }
 
-const calibrateDrySensors = async () => {
-  console.log("Calibrating dry sensors. Do not touch sensors");
-
-  for (let sensor of sensors) {
-    console.log("Calibrating dry sensor on channel", sensor.channel);
-    sensor.dryMax = await calibrateDrySensor(sensor.channel);
-    console.log("Save this value as dry max:", sensor.dryMax);
-  }
-}
-
 const calibrateDrySensor = async (channel) => {
   let max = 0;
 
@@ -37,17 +27,6 @@ const calibrateDrySensor = async (channel) => {
   }
 
   return max;
-}
-
-const calibrateWetSensors = async () => {
-  console.log("Calibrating wet sensors. Sensors should be placed in water");
-
-  for (let sensor of sensors) {
-    console.log("Calibrating wet sensor on channel", sensor.channel);
-    sensor.wetMin = await calibrateWetSensor(sensor.channel);
-
-    console.log("Save this value as wet min:", sensor.wetMin);
-  }
 }
 
 const calibrateWetSensor = async (channel) => {
@@ -63,6 +42,6 @@ const calibrateWetSensor = async (channel) => {
 
 module.exports = {
   readHumidity,
-  calibrateDrySensors,
-  calibrateWetSensors
+  calibrateDrySensor,
+  calibrateWetSensor
 }

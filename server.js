@@ -2,13 +2,12 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
 const PlantService = require('./modules/plant_service');
-const SensorReader = require('./modules/SensorReader/sensor_reader')
 
 if (process.argv[2] == "calibrate") {
   if (process.argv[3] == "dry")
-    PlantReader.calibrateDrySensors();
+    PlantService.calibrateDrySensors();
   else if (process.argv[3] == "wet")
-    PlantReader.calibrateWetSensors();
+    PlantService.calibrateWetSensors();
   else {
     console.log("Unknown command. Use 'dry' or 'wet'")
   }
@@ -31,7 +30,10 @@ if (process.argv[2] == "calibrate") {
   })
   
   app.listen(port, async () => {
-    await PlantService.updateHumidity();
+    if (process.env.PRODUCTION) {
+      await PlantService.updateHumidity();
+    }
+
     console.log(`Plower app listening on port ${port}`);
   });
 }

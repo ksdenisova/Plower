@@ -1,5 +1,6 @@
 const PlantService = require('./plant_service');
 const PlantRepository = require('./plant_repository');
+const SensorReader = require('./SensorReader/sensor_reader');
 
 describe('PlantService', () => {
   beforeEach(() => {
@@ -16,9 +17,9 @@ describe('PlantService', () => {
 
   test('returns list of plants', async () => {
     const testPlants = [ { "id": "0", "name": "First test plant", "dateAdded": "2022-03-30T11:10:00", 
-                            "lastWatered": "2022-03-30T12:01:00", "sensorId": "1", "humidity": "75", "lastReading": "2022-03-30T12:01:00"},
+                            "lastWatered": "2022-03-30T12:01:00", "sensorId": "1", "humidity": "75"},
                           { "id": "1", "name": "Second test plant", "dateAdded": "2022-04-01T11:11:00", 
-                            "lastWatered": "2022-04-01T15:00:00", "sensorId": "2", "humidity": "50", "lastReading": "2022-04-04T10:15:00"}];
+                            "lastWatered": "2022-04-01T15:00:00", "sensorId": "2", "humidity": "50"}];
 
     const getPlantsSpy = jest.spyOn(PlantRepository, "getPlants").mockImplementation(() => testPlants);
     
@@ -30,7 +31,7 @@ describe('PlantService', () => {
 
   test('creates plant', async () => {
     const testPlant = { "id": "0", "name": "First test plant", "dateAdded": "2022-03-30T11:10:00", 
-                            "lastWatered": "2022-03-30T12:01:00", "sensorId": "1", "humidity": "75", "lastReading": "2022-03-30T12:01:00"};
+                            "lastWatered": "2022-03-30T12:01:00", "sensorId": "1", "humidity": "75"};
 
     const createPlantsSpy = jest.spyOn(PlantRepository, "createPlant").mockImplementation(() => {});
 
@@ -67,11 +68,41 @@ describe('PlantService', () => {
   });
 
   test('returns null if not found available sensor', async () => {
-    const sensors = [ {"id": 1, "channel": "1+GND", "humidity": 85, "dryMax": 12730, "wetMin": 5571, "assigned": true} ];
+    const sensors = [ {"id": 1, "channel": "1+GND", "assigned": true} ];
 
     const getSensorsSpy = jest.spyOn(PlantRepository, "getSensors").mockImplementation(() => {return sensors});
     const availableSensor = await PlantService.assignSensor();
 
     expect(availableSensor).toBeNull();
+  });
+
+  test('calibrates dry sensors', async () => {
+    const sensors = [ {"id": 1, "channel": "1+GND", "dryMax": "", "wetMin": ""},
+                      {"id": 2, "channel": "2+GND", "dryMax": "", "wetMin": ""} ];
+
+    const getSensorsSpy = jest.spyOn(PlantRepository, "getSensors").mockImplementation(() => {return sensors});
+    const updateSensorSpy = jest.spyOn(PlantRepository, "updateSensor").mockImplementation(() => null);
+
+    const calibrateSpy = jest.spyOn(SensorReader, "calibrateDrySensor").mockImplementation(() => 12000);
+    await PlantService.calibrateDrySensors();
+
+    expect(getSensorsSpy).toHaveBeenCalledTimes(1);
+    expect(updateSensorSpy).toHaveBeenCalledTimes(2);
+    expect(calibrateSpy).toHaveBeenCalledTimes(2);
+  });
+
+  test('calibrates wet sensors', async () => {
+    const sensors = [ {"id": 1, "channel": "1+GND", "dryMax": "", "wetMin": ""},
+                      {"id": 2, "channel": "2+GND", "dryMax": "", "wetMin": ""} ];
+
+    const getSensorsSpy = jest.spyOn(PlantRepository, "getSensors").mockImplementation(() => {return sensors});
+    const updateSensorSpy = jest.spyOn(PlantRepository, "updateSensor").mockImplementation(() => null);
+
+    const calibrateSpy = jest.spyOn(SensorReader, "calibrateWetSensor").mockImplementation(() => 5000);
+    await PlantService.calibrateWetSensors();
+
+    expect(getSensorsSpy).toHaveBeenCalledTimes(1);
+    expect(updateSensorSpy).toHaveBeenCalledTimes(2);
+    expect(calibrateSpy).toHaveBeenCalledTimes(2);
   });
 });
