@@ -93,10 +93,10 @@ To deploy the Plower app to Raspberry Pi locally, run this command in the Termin
 - Place the assigned sensor in your plant's pot.
 
 # Home Page
-<img width="1103" alt="image" src="https://user-images.githubusercontent.com/89826596/162479155-426c3042-ac54-4e81-b280-f252f5f6fc90.png">
+<img width="1484" alt="CleanShot 2022-04-13 at 17 00 04@2x" src="https://user-images.githubusercontent.com/89826596/163269536-2fca0c6f-8e27-4480-b8c7-4469baa00655.png">
 
 # Add Plant
-<img width="755" alt="image" src="https://user-images.githubusercontent.com/89826596/161615618-690d6bc8-6feb-4398-a34d-eab689ad7e6c.png">
+<img width="1488" alt="CleanShot 2022-04-13 at 16 58 25@2x" src="https://user-images.githubusercontent.com/89826596/163269416-c06b1a9d-da9a-4a54-969f-e08c5d4cdaf8.png">
 
 # Usefull Resources
 - https://www.youtube.com/watch?v=tFefuPWqXT4
