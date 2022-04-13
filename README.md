@@ -83,6 +83,20 @@ To deploy the Plower app to Raspberry Pi locally, run this command in the Termin
 
 
 # How to Use Plower
+- The Plower app's home page displays the list of your plants.
+- Last added plants displayed first.
+- The humidity updates when the app starts and every half an hour.
+- The color of the humidity bar depends on the humidity level.
+- When the last updated humidity increased by 10 % and more, the last watered date and time will be updated.
+- To create a new plant, click on `+` button, enter the name of the plant, and press Enter/click `+`.
+- If there are available sensors, the first one will be assigned to your plant.
+- Place the assigned sensor in your plant's pot.
+
+# Home Page
+<img width="1103" alt="image" src="https://user-images.githubusercontent.com/89826596/162479155-426c3042-ac54-4e81-b280-f252f5f6fc90.png">
+
+# Add Plant
+<img width="755" alt="image" src="https://user-images.githubusercontent.com/89826596/161615618-690d6bc8-6feb-4398-a34d-eab689ad7e6c.png">
 
 # Usefull Resources
 - https://www.youtube.com/watch?v=tFefuPWqXT4
