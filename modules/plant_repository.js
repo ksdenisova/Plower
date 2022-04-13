@@ -1,5 +1,7 @@
 const { MongoClient } = require("mongodb");
-const uri = `mongodb://mongo-db:27017/?authMechanism=DEFAULT`;
+const dbUser = process.env.MONGO_USER
+const dbPassword = process.env.MONGO_PASSWORD
+const uri = `mongodb://${dbUser}:${dbPassword}@mongo-db:27017/?authMechanism=DEFAULT&authSource=plower`;
 const client = new MongoClient(uri);
 
 const getPlants = async () =>  {
@@ -22,6 +24,21 @@ const createPlant = async (plant) => {
     const result = await plants.insertOne(plant);
     
     console.log(`A document was inserted with the _id: ${result.insertedId}`);
+  } finally {
+    await client.close();
+  }
+}
+
+const updatePlant = async (sensorId, humidity) => {
+  try {
+    await client.connect();
+    const db = client.db("plower");
+    const sensors = db.collection("plants");
+    const query = { _id: sensorId };
+    
+    const result = await sensors.replaceOne(query, sensor);
+
+    console.log(`Modified ${result.modifiedCount} document(s)`);
   } finally {
     await client.close();
   }
