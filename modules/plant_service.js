@@ -1,4 +1,5 @@
-const PlantRepository = require("./plant_repository")
+const PlantRepository = require('./Repository/plant_repository');
+const SensorRepository = require('./Repository/sensor_repository');
 const SensorReader = require('./SensorReader/sensor_reader');
 const schedule = require('node-schedule');
 const period = process.env.PERIOD || '*/30 * * * *';
@@ -23,27 +24,28 @@ const createPlant = async (plant) => {
     sensor.humidity = humidity;
     plant.sensorId = sensor._id;
     plant.humidity = humidity;
+    plant.lastWatered = new Date(Date.now());
     
-    await PlantRepository.saveSensor(sensor);
+    await SensorRepository.saveSensor(sensor);
   }
 
   await PlantRepository.createPlant(plant);
 }
 
 const updateHumidity = async () => {
-  const sensors = await PlantRepository.getSensors();
+  const sensors = await SensorRepository.getSensors();
 
   for (let sensor of sensors) {
     const humidity = await getCurrentHumidity(sensor);
 
     if (humidity - sensor.humidity >= 10) {
       const lastWatered = new Date(Date.now());
-      await PlantRepository.updatePlantWatering(sensor._id, humidity, lastWatered.to);
+      await PlantRepository.updatePlantWatering(sensor._id, humidity, lastWatered);
     } else {
       await PlantRepository.updatePlantHumidity(sensor._id, humidity);
     }
   
-    await PlantRepository.updateSensor(sensor._id, humidity);
+    await SensorRepository.updateSensor(sensor._id, humidity);
     console.log("Current humidity on channel", sensor.channel, "=", humidity);
   }
 }
@@ -65,7 +67,7 @@ const calculateHumidity = (dryMax, wetMin, value) => {
 
 const assignSensor = async () => {
   let availableSensor;
-  const sensors = await PlantRepository.getSensors();
+  const sensors = await SensorRepository.getSensors();
 
   for (let sensor of sensors) {
     if (!sensor.assigned) {
@@ -87,12 +89,12 @@ const assignSensor = async () => {
 const calibrateDrySensors = async () => {
   console.log("Calibrating dry sensors. Do not touch sensors.");
 
-  const sensors = await PlantRepository.getSensors();
+  const sensors = await SensorRepository.getSensors();
 
   for (let sensor of sensors) {
     console.log("Calibrating dry sensor on channel", sensor.channel);
     sensor.dryMax = await SensorReader.calibrateDrySensor(sensor.channel);
-    await PlantRepository.saveSensor(sensor);
+    await SensorRepository.saveSensor(sensor);
     
     console.log("Saved this value as dry max:", sensor.dryMax);
   }
@@ -105,12 +107,12 @@ const calibrateDrySensors = async () => {
 const calibrateWetSensors = async () => {
   console.log("Calibrating wet sensors. Sensors should be placed into the water.\nIf they are not, please place sensors into the water and start the calibration again.");
 
-  const sensors = await PlantRepository.getSensors();
+  const sensors = await SensorRepository.getSensors();
 
   for (let sensor of sensors) {
     console.log("Calibrating wet sensor on channel", sensor.channel);
     sensor.wetMin = await SensorReader.calibrateWetSensor(sensor.channel);
-    await PlantRepository.saveSensor(sensor);
+    await SensorRepository.saveSensor(sensor);
 
     console.log("Saved this value as wet min:", sensor.wetMin);
   }
