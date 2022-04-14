@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './index.css';
 
-function NewPlant( { createPlant } ) {
+function NewPlant( { createPlant, plantsNames } ) {
   const [name, setName] = useState("");
 
   const handleChange = (event) => {
@@ -15,7 +15,8 @@ function NewPlant( { createPlant } ) {
   }
 
   const handleCreatePlant = () => {
-    if (!name) {
+    if (!name || plantsNames.includes(name.toLowerCase())) {
+      console.log("The name should be unique and not empty");
       return;
     }
     

@@ -3,6 +3,8 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react"
 import userEvent from '@testing-library/user-event'
 
 describe('NewPlant', () => {
+  jest.spyOn(global.console, 'log').mockImplementation(() => jest.fn());
+
   test('renders form with placeholder for a new plant name', () => {
     render(<NewPlant />);
   
@@ -31,7 +33,7 @@ describe('NewPlant', () => {
     expect(button).toHaveTextContent("+");
   });
   
-  test('a new plant form has a focus', () => {
+ test('a new plant form has a focus', () => {
     render(<NewPlant />);
   
     const form = screen.getByRole("textbox");
@@ -41,8 +43,9 @@ describe('NewPlant', () => {
   
   test("calls 'createPlant' function with a new plant name when user clicks the plus button", async () => {
     const createPlantMock = jest.fn();
-    
-    render(<NewPlant createPlant={createPlantMock} />);
+    const plantsNames = ["First", "Second"];
+
+    render(<NewPlant createPlant={createPlantMock} plantsNames={plantsNames} />);
   
     const form = screen.getByRole("textbox");
     const plantName = "New Test Plant";
@@ -72,8 +75,9 @@ describe('NewPlant', () => {
   
   test("calls 'createPlant' function with a new plant name when user press Enter", async () => {
     const createPlantMock = jest.fn();
-    
-    render(<NewPlant createPlant={createPlantMock} />);
+    const plantsNames = ["First", "Second"];
+
+    render(<NewPlant createPlant={createPlantMock} plantsNames={plantsNames} />);
   
     const form = screen.getByRole("textbox");
     const plantName = "New Test Plant";
@@ -88,12 +92,27 @@ describe('NewPlant', () => {
   
   test("does not call 'createPlant' function when user presses Enter and name is empty", async () => {
     const createPlantMock = jest.fn();
-    
-    render(<NewPlant createPlant={createPlantMock} />);
+    const plantsNames = ["First", "Second"];
+
+    render(<NewPlant createPlant={createPlantMock} plantsNames={plantsNames} />);
   
     const form = screen.getByRole("textbox");
   
     fireEvent.keyPress(form, {key: 'Enter', code: 'Enter', charCode: 13});
+  
+    expect(createPlantMock).not.toHaveBeenCalled();
+  });
+
+  test("does not call 'createPlant' function when name is not unique", async () => {
+    const createPlantMock = jest.fn();
+    const plantsNames = ["first", "second"];
+
+    render(<NewPlant createPlant={createPlantMock} plantsNames={plantsNames} />);
+  
+    const form = screen.getByRole("textbox");
+    const plantName = "second";
+  
+    userEvent.type(form, plantName + '{enter}');
   
     expect(createPlantMock).not.toHaveBeenCalled();
   });
