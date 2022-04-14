@@ -5,14 +5,16 @@ const SensorReader = require('../SensorReader/sensor_reader');
 
 describe('PlantService', () => {
   beforeEach(() => {
+    jest.resetAllMocks();
     const sensors = [ {"id": 1, "channel": "1+GND", "humidity": 85, "dryMax": 12000, "wetMin": 5000, "assigned": true},
                   {"id": 2, "channel": "2+GND", "humidity": 10, "dryMax": 12500, "wetMin": 5500, "assigned": false} ];
 
     jest.spyOn(SensorRepository, "getSensors").mockImplementation(() => {return sensors});
     jest.spyOn(SensorRepository, "saveSensor").mockImplementation(() => null);
+    jest.spyOn(global.console, 'log').mockImplementation(() => jest.fn());
   });
   
-  afterEach(() => {
+  afterAll(() => {
     jest.clearAllMocks();
   }); 
 
@@ -41,6 +43,16 @@ describe('PlantService', () => {
 
     expect(createPlantsSpy).toHaveBeenCalledWith(testPlant);
   });
+  
+  test('updates humidity', async () => {
+    const updatePlanHumiditySpy = jest.spyOn(PlantRepository, "updatePlantHumidity").mockImplementation(() => {});
+    const updateSensorSpy = jest.spyOn(SensorRepository, "updateSensor").mockImplementation(() => {});
+  
+    await PlantService.updateHumidity();
+  
+    expect(updateSensorSpy).toHaveBeenCalledTimes(2);
+    expect(updatePlanHumiditySpy).toHaveBeenCalledTimes(2);
+});
 
   test('converts humidity from digital value to %', () => {
     const dryMax = 12000;

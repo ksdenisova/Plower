@@ -8,6 +8,8 @@ const getPlants = async () =>  {
 }
 
 const createPlant = async (plant) => {
+  plant.dateAdded = new Date(Date.now());
+  
   const db = DbClient.getDb();
   const plants = db.collection("plants");
   const result = await plants.insertOne(plant);

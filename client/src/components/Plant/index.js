@@ -9,7 +9,7 @@ function Plant( { plant } ) {
 
   if (lastWatered) {
     date = new Date(lastWatered);
-    date = format(date, "'Last watered: 'MMMM dd, yyyy' at 'hh:mm aaa");
+    date = format(date, "'Last watered: 'MMMM dd, yyyy' at 'h:mm aaa");
   }
 
   return (
