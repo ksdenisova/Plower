@@ -7,6 +7,7 @@ import './index.css';
 function Home() {
   const [plants, setPlants] = useState([]);
   const [newPlantVisibility, setVisibility] = useState(false);
+  const [plantsNames, setNames] = useState([]);
 
   useEffect(() => {
     refresh();
@@ -16,8 +17,10 @@ function Home() {
     try {
       const plants = await HttpClient.getPlants();
       const sortedPlants = plants.sort((x,y) => new Date(y.dateAdded) - new Date(x.dateAdded));
+      const names = plants.map(plant => plant.name.toLowerCase());
 
       setPlants(sortedPlants);
+      setNames(names);
     } catch (error) {
     }
   }
@@ -61,7 +64,7 @@ function Home() {
       </div>
       <div>
         {newPlantVisibility ? <div className="blur" onClick={changeVisibility}></div> : null}
-        {newPlantVisibility ? <div className="new-plant-window"><NewPlant createPlant={createPlant}/></div> : null} 
+        {newPlantVisibility ? <div className="new-plant-window"><NewPlant createPlant={createPlant} plantsNames={plantsNames}/></div> : null} 
       </div>
     </div>
   );
