@@ -1,23 +1,18 @@
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
-const PlantService = require('./modules/plant_service');
-const PlantReader = require('./modules/plant_reader');
-const schedule = require('node-schedule');
+const DbClient = require('./modules/Repository/db_client');
+const PlantService = require('./modules/PlantService/plant_service');
 
 if (process.argv[2] == "calibrate") {
   if (process.argv[3] == "dry")
-    PlantReader.calibrateDrySensors();
+    PlantService.calibrateDrySensors();
   else if (process.argv[3] == "wet")
-    PlantReader.calibrateWetSensors();
+    PlantService.calibrateWetSensors();
   else {
     console.log("Unknown command. Use 'dry' or 'wet'")
   }
 } else {
-  const job = schedule.scheduleJob('* * * * * *', async () => {
-    await PlantReader.updateHumidity();
-  });
-  
   app.use(express.json());
   app.use(express.static('client/build'));
   
@@ -35,7 +30,13 @@ if (process.argv[2] == "calibrate") {
     res.send(req.body);
   })
   
-  app.listen(port, () => {
-    console.log(`Plower app listening on port ${port}`)
+  app.listen(port, async () => {
+    await DbClient.connect();
+
+    if (process.env.PRODUCTION) {
+      await PlantService.updateHumidity();
+    }
+
+    console.log(`Plower app listening on port ${port}`);
   });
 }

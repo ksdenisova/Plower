@@ -14,8 +14,8 @@ function Home() {
 
   const  refresh = async () => {
     try {
-      let plants = await HttpClient.getPlants();
-      let sortedPlants = plants.sort((x,y) => new Date(y.dateAdded) - new Date(x.dateAdded));
+      const plants = await HttpClient.getPlants();
+      const sortedPlants = plants.sort((x,y) => new Date(y.dateAdded) - new Date(x.dateAdded));
 
       setPlants(sortedPlants);
     } catch (error) {
@@ -27,9 +27,8 @@ function Home() {
   }
 
   const createPlant = async (name) => { 
-    let date = new Date(Date.now());
-    let plant = { "name": name, "sensorId": "", "humidity": "", 
-                  "dateAdded": date, "lastWatered": "", "lastReading": ""};
+    const plant = { "name": name, "sensorId": "", "humidity": "", 
+                  "dateAdded": "", "lastWatered": ""};
     
     try {
       await HttpClient.createPlant(plant);

@@ -5,6 +5,9 @@ A full-stack [React](https://reactjs.org) + [Node.js](https://nodejs.org/en/) ap
 
 The Plower app is running on [Raspberry Pi](https://www.raspberrypi.org), which communicates with moisture sensors.
 
+![IMG_0859](https://user-images.githubusercontent.com/89826596/163451055-843fbb6c-efad-4d0a-b2df-6674917b7a08.jpg)
+
+
 # Tech Stack
 
 - [React](https://reactjs.org)
@@ -83,6 +86,20 @@ To deploy the Plower app to Raspberry Pi locally, run this command in the Termin
 
 
 # How to Use Plower
+- The Plower app's home page displays the list of your plants.
+- Last added plants displayed first.
+- The humidity updates when the app starts and every half an hour.
+- The color of the humidity bar depends on the humidity level.
+- When the last updated humidity increased by 10 % and more, the last watered date and time will be updated.
+- To create a new plant, click on `+` button, enter the name of the plant, and press Enter/click `+`.
+- If there are available sensors, the first one will be assigned to your plant.
+- Place the assigned sensor in your plant's pot.
+
+# Home Page
+<img width="1484" alt="CleanShot 2022-04-13 at 17 00 04@2x" src="https://user-images.githubusercontent.com/89826596/163269536-2fca0c6f-8e27-4480-b8c7-4469baa00655.png">
+
+# Add Plant
+<img width="1488" alt="CleanShot 2022-04-13 at 16 58 25@2x" src="https://user-images.githubusercontent.com/89826596/163269416-c06b1a9d-da9a-4a54-969f-e08c5d4cdaf8.png">
 
 # Usefull Resources
 - https://www.youtube.com/watch?v=tFefuPWqXT4
