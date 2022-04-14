@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
+const DbClient = require('./modules/Repository/db_client');
 const PlantService = require('./modules/PlantService/plant_service');
 
 if (process.argv[2] == "calibrate") {
@@ -30,6 +31,8 @@ if (process.argv[2] == "calibrate") {
   })
   
   app.listen(port, async () => {
+    await DbClient.connect();
+
     if (process.env.PRODUCTION) {
       await PlantService.updateHumidity();
     }
