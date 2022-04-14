@@ -5,6 +5,9 @@ A full-stack [React](https://reactjs.org) + [Node.js](https://nodejs.org/en/) ap
 
 The Plower app is running on [Raspberry Pi](https://www.raspberrypi.org), which communicates with moisture sensors.
 
+![IMG_0859](https://user-images.githubusercontent.com/89826596/163451055-843fbb6c-efad-4d0a-b2df-6674917b7a08.jpg)
+
+
 # Tech Stack
 
 - [React](https://reactjs.org)
