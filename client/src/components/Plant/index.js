@@ -1,6 +1,7 @@
 import React from 'react';
 import { format } from 'date-fns'
 import Humidity from '../Humidity';
+import DeleteIcon from '@mui/icons-material/Delete';
 import './index.css';
 
 function Plant( { plant } ) {
@@ -31,6 +32,9 @@ function Plant( { plant } ) {
       </div>
       <div className="humidity-box">
         <Humidity moisture={humidity}/>
+      </div>
+      <div>
+        <DeleteIcon className="delete-icon"/>
       </div>
     </div>
   );

@@ -2,9 +2,13 @@ import Plant from '.';
 import { render, screen } from "@testing-library/react"
 
 describe('Plant', () => {
+  let testPlant;
+
+  beforeEach(() => {
+    testPlant = { "_id": "0", "name": "Test plant name", "lastWatered": "" };
+  });
+
   test('renders a plant name', () => {
-    const testPlant = { "_id": "0", "name": "Test plant name" };
-    
     render(<Plant plant={testPlant}/>);
   
     const plantName = screen.getByText("Test plant name");
@@ -13,8 +17,6 @@ describe('Plant', () => {
   });
   
   test('renders a default plant image', () => {
-    const testPlant = { "_id": "0", "name": "Test plant name" };
-    
     render(<Plant plant={testPlant}/>);
   
     const image = screen.getByRole("img");
@@ -24,7 +26,7 @@ describe('Plant', () => {
   });
   
   test('renders last watering date and time', () => {
-    const testPlant = { "_id": "0", "name": "Test plant name", "lastWatered": "2022-03-30T12:01:00" };
+    testPlant.lastWatered = "2022-03-30T12:01:00";
     
     render(<Plant plant={testPlant}/>);
   
@@ -34,12 +36,18 @@ describe('Plant', () => {
   });
   
   test("renders 'Not yet watered' if there are not last watering date and time", () => {
-    const testPlant = { "_id": "0", "name": "Test plant name", "lastWatered": "" };
-    
     render(<Plant plant={testPlant}/>);
   
     const lastWatered = screen.getByText("Not yet watered");
   
     expect(lastWatered).toBeInTheDocument();
+  });
+
+  test('renders delete button icon', () => {
+    render(<Plant plant={testPlant}/>);
+  
+    const icon = screen.getByTestId("DeleteIcon");
+  
+    expect(icon).toBeInTheDocument();
   });
 });
